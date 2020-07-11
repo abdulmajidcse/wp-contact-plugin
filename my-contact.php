@@ -15,8 +15,19 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 final class My_Contact {
 
+    /**
+     * Plugin version
+     * @var string
+     */
+    const version = '1.0';
+
+    /**
+     * Class constructor
+     * run functions in the class and initialize hooks
+     */
     private function __construct() {
-        # code ...
+        $this->define_constants();
+        register_activation_hook( __FILE__, [ $this, 'activation' ] );
     }
 
     /**
@@ -31,6 +42,30 @@ final class My_Contact {
         }
         
         return $instance;
+    }
+
+    /**
+     * Define the required plugin contants
+     * @return void
+     */
+    public function define_constants() {
+        define( 'MY_CONTACT_VERSION', self::version );
+        define( 'MY_CONTACT_FILE', __FILE__ );
+        define( 'MY_CONTACT_PATH', __DIR__ );
+        define( 'MY_CONTACT_URL', plugins_url( '', MY_CONTACT_FILE ) );
+        define( 'MY_CONTACT_ASSETS', MY_CONTACT_URL . '/aasets' );
+    }
+
+    /**
+     * Set activation values
+     * @return void
+     */
+    public function activation() {
+        $installed = get_option( 'my_contact_installed' );
+        if ( ! $installed ) {
+            update_option( 'my_contact_installed', time() );
+        }
+        update_option( 'my_contact_version', MY_CONTACT_VERSION );
     }
 }
 
