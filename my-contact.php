@@ -28,6 +28,7 @@ final class My_Contact {
     private function __construct() {
         $this->define_constants();
         register_activation_hook( __FILE__, [ $this, 'activation' ] );
+        add_action( 'plugin_loaded', [ $this, 'init_plugin' ] );
     }
 
     /**
@@ -66,6 +67,14 @@ final class My_Contact {
             update_option( 'my_contact_installed', time() );
         }
         update_option( 'my_contact_version', MY_CONTACT_VERSION );
+    }
+
+    /**
+     * Initialize plugin functionality
+     * @return void
+     */
+    public function init_plugin() {
+        echo "<script>alert('I am from My Contact Plugin');</script>";
     }
 }
 
