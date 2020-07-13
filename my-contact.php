@@ -13,6 +13,8 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 final class My_Contact {
 
     /**
@@ -28,7 +30,7 @@ final class My_Contact {
     private function __construct() {
         $this->define_constants();
         register_activation_hook( __FILE__, [ $this, 'activation' ] );
-        add_action( 'plugin_loaded', [ $this, 'init_plugin' ] );
+        add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
     }
 
     /**
@@ -37,12 +39,11 @@ final class My_Contact {
      * @return \My_Contact
      */
     public static function init() {
-        $instance = false;
-        if ( ! $instance ) {
-            $instance = new self();
+        $my_contact_instance = false;
+        if ( ! $my_contact_instance ) {
+            $my_contact_instance = new self();
         }
-        
-        return $instance;
+        return $my_contact_instance;
     }
 
     /**
@@ -74,7 +75,9 @@ final class My_Contact {
      * @return void
      */
     public function init_plugin() {
-        echo "<script>alert('I am from My Contact Plugin');</script>";
+        
+        new My_Contact\Admin();
+        
     }
 }
 
@@ -85,9 +88,11 @@ final class My_Contact {
  */
 function my_contact() {
     My_Contact::init();
+    
 }
 
 /**
  * call plugin function
  */
 my_contact();
+
