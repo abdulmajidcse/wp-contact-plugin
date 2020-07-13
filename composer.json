@@ -1,0 +1,20 @@
+{
+    "name": "abdulmajidweb/my-contact",
+    "description": "This is a WordPress plugin for form builder.",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Md Abdul Majid",
+            "email": "abmajidweb@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "MyContact\\": "includes/"
+        },
+        "files": []
+    }
+}
