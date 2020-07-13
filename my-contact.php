@@ -63,11 +63,7 @@ final class My_Contact {
      * @return void
      */
     public function activation() {
-        $installed = get_option( 'my_contact_installed' );
-        if ( ! $installed ) {
-            update_option( 'my_contact_installed', time() );
-        }
-        update_option( 'my_contact_version', MY_CONTACT_VERSION );
+        new My_Contact\Installer();
     }
 
     /**
@@ -75,9 +71,9 @@ final class My_Contact {
      * @return void
      */
     public function init_plugin() {
-        
-        new My_Contact\Admin();
-        
+        if ( is_admin()) {
+            new My_Contact\Admin();
+        }
     }
 }
 
