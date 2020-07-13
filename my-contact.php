@@ -71,8 +71,10 @@ final class My_Contact {
      * @return void
      */
     public function init_plugin() {
-        if ( is_admin()) {
+        if ( is_admin() ) {
             new My_Contact\Admin();
+        } else {
+            new My_Contact\Frontend();
         }
     }
 }
