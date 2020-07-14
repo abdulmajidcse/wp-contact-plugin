@@ -55,7 +55,7 @@ final class My_Contact {
         define( 'MY_CONTACT_FILE', __FILE__ );
         define( 'MY_CONTACT_PATH', __DIR__ );
         define( 'MY_CONTACT_URL', plugins_url( '', MY_CONTACT_FILE ) );
-        define( 'MY_CONTACT_ASSETS', MY_CONTACT_URL . '/aasets' );
+        define( 'MY_CONTACT_ASSETS', MY_CONTACT_URL . '/assets' );
     }
 
     /**

@@ -5,7 +5,7 @@ namespace My_Contact;
 class Admin {
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'menu_setup'] );
-        add_action( 'admin_menu', [ $this, 'enqueue_styles' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
     }
 
     public function menu_setup() {
@@ -21,6 +21,8 @@ class Admin {
         $all_contact = $wpdb->get_results(
             "SELECT * FROM {$wpdb->prefix}my_contact_messages"
         );
+        wp_enqueue_style( 'my_contact_admin_bootstrap_css' );
+        wp_enqueue_script( 'my_contact_admin_js' );
         require_once __DIR__ . '/views/all-contact.php';
     }
 
@@ -29,6 +31,7 @@ class Admin {
     }
 
     public function enqueue_styles() {
-        wp_enqueue_style( 'my_contact_bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', 'Bootstrap' );
+        wp_register_style( 'my_contact_admin_bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', 'Bootstrap' );
+        wp_register_script( 'my_contact_admin_js', MY_CONTACT_ASSETS . '/js/admin.js', 'jQuery', filemtime( MY_CONTACT_PATH . '/assets/js/admin.js' ), true );
     }
 }
