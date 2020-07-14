@@ -2,8 +2,10 @@
 
 namespace My_Contact;
 
+use My_Contact\Traits\Form_Error;
+
 class Frontend {
-    
+    use Form_Error;
     /**
      * Class constructor
      * Loaded frontend hooks
@@ -25,14 +27,30 @@ class Frontend {
 
     public function form_handler() {
         if ( isset( $_POST[ 'my_contact_message_send' ] ) && wp_verify_nonce( $_POST['_wpnonce'], 'my_contact_form_nonce' ) ) {
-            
+            // sanitize fields
             $name = isset( $_POST[ 'name' ] ) ? sanitize_text_field( $_POST[ 'name' ] ) : '';
             $email = isset( $_POST[ 'email' ] ) ? sanitize_text_field( $_POST[ 'email' ] ) : '';
             $subject = isset( $_POST[ 'subject' ] ) ? sanitize_text_field( $_POST[ 'subject' ] ) : '';
             $message = isset( $_POST[ 'message' ] ) ? sanitize_textarea_field( $_POST[ 'message' ] ) : '';
 
             if ( empty( $name ) ) {
-                die( var_dump( new \WP_Error( 'no-name', 'You must provide a name' ) ) );
+                $this->errors[ 'name' ] = 'You must provide a name!';
+            }
+
+            if ( empty( $email ) ) {
+                $this->errors[ 'email' ] = 'You must provide an email!';
+            }
+
+            if ( empty( $subject ) ) {
+                $this->errors[ 'subject' ] = 'You must provide a subject!';
+            }
+
+            if ( empty( $message ) ) {
+                $this->errors[ 'message' ] = 'You must write your message!';
+            }
+
+            if ( ! empty( $this->errors ) ) {
+                return;
             }
             // insert data
             global $wpdb;
@@ -47,13 +65,12 @@ class Frontend {
                 $table_name,
                 $data
             );
-            if ( message_insert ) {
-                $redirect_to = $_POST[ 'form_url' ] . '?message=success';
-            } else {
-                $redirect_to = $_POST[ 'form_url' ] . '?message=error';
+            if ( $message_insert ) {
+                $redirect_to = sanitize_text_field( $_POST[ 'form_url' ] ) . '?message=success';
             }
             wp_redirect( $redirect_to );
             exit;
+
         } else {
             wp_die( 'Are you chating?' );
         }

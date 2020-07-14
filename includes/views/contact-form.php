@@ -2,8 +2,6 @@
     <?php
         if ( isset( $_GET[ 'message' ] ) && $_GET[ 'message' ] == 'success' ) {
             echo "<p style='color: green;'>Message sent successfully!</p>";
-        } elseif ( isset( $_GET[ 'message' ] ) && $_GET[ 'message' ] == 'error' ) {
-            echo "<p style='color: red;'>Message did not send successfully!</p>";
         }
     ?>
     <form action="" method="POST">
@@ -11,21 +9,30 @@
             <label for="">Name</label>
         </p>
         <p>
-            <input type="text" name="name" required>
+            <input type="text" name="name">
+            <?php if ( $this->has_error( 'name' ) ) { ?> 
+                <span style="color: red;"><?php echo $this->get_error( 'name' ); ?></span>
+            <?php } ?>
         </p>
 
         <p>
             <label for="">Email</label>
         </p>
         <p>
-            <input type="email" name="email" required>
+            <input type="email" name="email">
+            <?php if ( $this->has_error( 'email' ) ) { ?> 
+                <span style="color: red;"><?php echo $this->get_error( 'email' ); ?></span>
+            <?php } ?>
         </p>
 
         <p>
             <label for="">Subject</label>
         </p>
         <p>
-            <input type="text" name="subject" required>
+            <input type="text" name="subject">
+            <?php if ( $this->has_error( 'subject' ) ) { ?> 
+                <span style="color: red;"><?php echo $this->get_error( 'subject' ); ?></span>
+            <?php } ?>
         </p>
 
         <p>
@@ -33,6 +40,9 @@
         </p>
         <p>
             <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            <?php if ( $this->has_error( 'message' ) ) { ?> 
+                <span style="color: red;"><?php echo $this->get_error( 'message' ); ?></span>
+            <?php } ?>
         </p>
 
         <?php
