@@ -1,7 +1,9 @@
 <div class="my-contact-message">
     <?php
-        if ( isset( $_GET[ 'message' ] ) && $_GET[ 'message' ] == 'true' ) {
-            echo 'success';
+        if ( isset( $_GET[ 'message' ] ) && $_GET[ 'message' ] == 'success' ) {
+            echo "<p style='color: green;'>Message sent successfully!</p>";
+        } elseif ( isset( $_GET[ 'message' ] ) && $_GET[ 'message' ] == 'error' ) {
+            echo "<p style='color: red;'>Message did not send successfully!</p>";
         }
     ?>
     <form action="" method="POST">
