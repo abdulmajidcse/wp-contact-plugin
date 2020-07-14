@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name:       My Contact Form
- * Plugin URI:        https://abdulmajid.xyz
+ * Plugin URI:        https://abmajid.com
  * Description:       Easy contact form for form builder and it's a testing purpose.
  * Version:           1.0
  * Author:            Abdul Majid
- * Author URI:        https://abdulmajid.xyz
+ * Author URI:        https://abmajid.com
  * License:           GPL v2
  * Text Domain:       my-contact
  */
