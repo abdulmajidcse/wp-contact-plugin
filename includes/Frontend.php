@@ -66,6 +66,7 @@ class Frontend {
                 $data
             );
             if ( $message_insert ) {
+                wp_mail( "$email", "$subject", "$message" );
                 $redirect_to = sanitize_text_field( $_POST[ 'form_url' ] ) . '?message=success';
             }
             wp_redirect( $redirect_to );
